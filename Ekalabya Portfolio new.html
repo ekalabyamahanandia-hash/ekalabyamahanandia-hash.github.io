@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ekalabya Mahanandia | Pharmaceutical Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --deep: #1a2e45;
+    --teal: #0a7ea4;
+    --accent: #00c9b1;
+    --gold: #c9a84c;
+    --cream: #f5f0e8;
+    --light: #e8f4f8;
+    --white: #ffffff;
+    --muted: #8fa3b1;
+    --text: #d4e4ef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(13,27,42,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,201,177,0.1);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 8rem 4rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(10,126,164,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,201,177,0.08) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,201,177,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,201,177,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-name span { color: var(--accent); font-style: italic; }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 520px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .pill {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid rgba(0,201,177,0.3);
+    border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: rgba(0,201,177,0.05);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .btn-primary {
+    padding: 0.8rem 2rem;
+    background: var(--accent);
+    color: var(--navy);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: #00e5ca;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,201,177,0.3);
+  }
+
+  .btn-outline {
+    padding: 0.8rem 2rem;
+    border: 1px solid rgba(0,201,177,0.4);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    background: rgba(0,201,177,0.08);
+  }
+
+  .hero-visual {
+    position: absolute;
+    right: 4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 340px;
+    height: 340px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1s;
+  }
+
+  .molecule-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0,201,177,0.2);
+    animation: spin linear infinite;
+  }
+
+  .ring-1 { width: 340px; height: 340px; top:0;left:0; animation-duration: 30s; }
+  .ring-2 { width: 260px; height: 260px; top:40px;left:40px; animation-duration: 22s; animation-direction: reverse; border-color: rgba(10,126,164,0.3); }
+  .ring-3 { width: 180px; height: 180px; top:80px;left:80px; animation-duration: 16s; border-color: rgba(201,168,76,0.2); }
+
+  .ring-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .ring-dot-2 { background: var(--teal); box-shadow: 0 0 12px var(--teal); }
+  .ring-dot-3 { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+
+  .ring-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,201,177,0.2), transparent);
+    border: 1px solid rgba(0,201,177,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+
+  .section-title em { color: var(--accent); font-style: italic; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .about-text p { margin-bottom: 1.2rem; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+    border: 1px solid rgba(0,201,177,0.15);
+    border-radius: 8px;
+    background: rgba(10,126,164,0.05);
+    transition: all 0.3s;
+  }
+
+  .stat-card:hover {
+    border-color: rgba(0,201,177,0.4);
+    background: rgba(0,201,177,0.05);
+    transform: translateY(-3px);
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SKILLS */
+  .skills-section { background: rgba(26,46,69,0.4); border-radius: 16px; padding: 4rem; margin: 0 2rem; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-group { }
+
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    padding: 0.3rem 0.7rem;
+    background: rgba(0,201,177,0.06);
+    border: 1px solid rgba(0,201,177,0.15);
+    border-radius: 4px;
+    font-size: 0.78rem;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    background: rgba(0,201,177,0.12);
+    border-color: rgba(0,201,177,0.35);
+    color: var(--accent);
+  }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(0,201,177,0.6);
+  }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-org {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-bullets li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .timeline-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  /* RESEARCH */
+  .research-card {
+    border: 1px solid rgba(0,201,177,0.2);
+    border-radius: 12px;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, rgba(10,126,164,0.08), rgba(0,201,177,0.04));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .research-card::before {
+    content: 'RESEARCH';
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(0,201,177,0.3);
+  }
+
+  .research-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .research-inst {
+    font-size: 0.82rem;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .research-methods {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .method-badge {
+    padding: 0.3rem 0.8rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+
+  .research-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .research-bullets li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .research-bullets li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.5rem;
+    top: 0.3rem;
+  }
+
+  /* CERTIFICATIONS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cert-card {
+    padding: 1.8rem;
+    border: 1px solid rgba(0,201,177,0.12);
+    border-radius: 10px;
+    background: rgba(13,27,42,0.6);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .cert-card:hover {
+    border-color: rgba(0,201,177,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  }
+
+  .cert-card:hover::after { transform: scaleX(1); }
+
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .cert-name {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .cert-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    padding: 2rem;
+    border: 1px solid rgba(10,126,164,0.2);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(10,126,164,0.06), transparent);
+    transition: all 0.3s;
+  }
+
+  .edu-card:hover {
+    border-color: rgba(10,126,164,0.5);
+    transform: translateY(-3px);
+  }
+
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-school {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+  }
+
+  .edu-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    padding: 6rem 4rem;
+    border-top: 1px solid rgba(0,201,177,0.1);
+  }
+
+  .contact-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--accent);
+    text-decoration: none;
+    display: block;
+    margin: 1.5rem 0;
+    transition: color 0.3s;
+  }
+
+  .contact-email:hover { color: var(--white); }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .contact-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(143,163,177,0.4);
+    letter-spacing: 0.1em;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    margin: 0 auto 3rem;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.5s;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  .scroll-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .skills-section { margin: 0; padding: 2.5rem 1.5rem; }
+    .contact-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">E. Mahanandia</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">// B.Pharm Graduate · Pharmaceutics</div>
+    <h1 class="hero-name">Ekalabya<br><span>Mahanandia</span></h1>
+    <p class="hero-subtitle">
+      Formulation Development · Quality Assurance & Control · Pharmaceutical Analysis · Clinical Research
+    </p>
+    <div class="hero-pills">
+      <span class="pill">QA / QC</span>
+      <span class="pill">Formulation Dev</span>
+      <span class="pill">GMP Practices</span>
+      <span class="pill">FTIR · XRD · DSC</span>
+      <span class="pill">Solid Dispersion</span>
+      <span class="pill">Drug Delivery</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#research" class="btn-outline">View Research</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="molecule-ring ring-1"><div class="ring-dot"></div></div>
+    <div class="molecule-ring ring-2"><div class="ring-dot ring-dot-2"></div></div>
+    <div class="molecule-ring ring-3"><div class="ring-dot ring-dot-3"></div></div>
+    <div class="ring-center">B.Pharm<br>Graduate</div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// 01 — About</div>
+  <h2 class="section-title">Passionate about <em>pharmaceutical</em> innovation</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>B.Pharm graduate with a strong foundation in Pharmaceutics, Industrial Pharmacy, Pharmaceutical Analysis, and Clinical Research. Passionate about contributing to the development of safe, effective, and innovative pharmaceutical products.</p>
+      <p>Academic and practical exposure spans industrial training across Production, Quality Assurance (QA), Quality Control (QC), Analytical Development, Documentation, and GMP practices at Research Terminal Hyderabad.</p>
+      <p>Based in Sundargarh, Odisha, India. Open to M.Pharm opportunities, pharmaceutical industry roles, research projects, internships, and collaborations.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-number">150+</div>
+        <div class="stat-label">Hospital Training Hours</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">6+</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Characterization Techniques</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Pharma Departments Trained</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div class="skills-section" id="skills">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">// 02 — Core Competencies</div>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">Technical <em>Skills</em></h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Pharmaceutical Sciences</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Pharmaceutics</span>
+          <span class="skill-tag">Formulation Development</span>
+          <span class="skill-tag">Industrial Pharmacy</span>
+          <span class="skill-tag">Pharmaceutical Analysis</span>
+          <span class="skill-tag">Clinical Research</span>
+          <span class="skill-tag">Drug Delivery Systems</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Quality & Regulatory</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Quality Assurance (QA)</span>
+          <span class="skill-tag">Quality Control (QC)</span>
+          <span class="skill-tag">GMP Practices</span>
+          <span class="skill-tag">Analytical Development</span>
+          <span class="skill-tag">Documentation</span>
+          <span class="skill-tag">SOPs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Research Techniques</div>
+        <div class="skill-tags">
+          <span class="skill-tag">FTIR</span>
+          <span class="skill-tag">XRD</span>
+          <span class="skill-tag">DSC</span>
+          <span class="skill-tag">Dissolution Studies</span>
+          <span class="skill-tag">Drug Content Evaluation</span>
+          <span class="skill-tag">Solid Dispersion</span>
+          <span class="skill-tag">Bioavailability Enhancement</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & Soft Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Microsoft Excel</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Scientific Reporting</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Teamwork</span>
+          <span class="skill-tag">Problem-Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">// 03 — Experience</div>
+  <h2 class="section-title">Professional <em>Journey</em></h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">NOV 2025 – DEC 2025</div>
+      <div class="timeline-title">Internship Trainee</div>
+      <div class="timeline-org">Research Terminal Hyderabad</div>
+      <ul class="timeline-bullets">
+        <li>Completed industrial training across Production, QA, QC, Analytical Development, Documentation, and GMP-compliant manufacturing.</li>
+        <li>Developed hands-on proficiency in Quality Assurance and Quality Control procedures applied to pharmaceutical manufacturing.</li>
+        <li>Gained practical exposure to Analytical Development techniques and documentation standards within a regulated environment.</li>
+        <li>Applied Good Manufacturing Practice (GMP) principles in daily laboratory and production activities.</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">JUN 2024 – JUL 2024</div>
+      <div class="timeline-title">Hospital Practical Trainee</div>
+      <div class="timeline-org">SLNMCH, Koraput — Approved by Pharmacy Council of India</div>
+      <ul class="timeline-bullets">
+        <li>Completed 150+ hours of practical training in hospital pharmacy operations.</li>
+        <li>Gained exposure to pharmacy management, dispensing, and patient care protocols.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-label">// 04 — Research</div>
+  <h2 class="section-title">Academic <em>Research</em></h2>
+  <div class="research-card">
+    <div class="research-title">Formulation and In-vitro Evaluation of Etoricoxib Solid Dispersion</div>
+    <div class="research-inst">Gayatri Institute of Science and Technology (GIST), Gunupur, Odisha</div>
+    <div class="research-methods">
+      <span class="method-badge">FTIR</span>
+      <span class="method-badge">XRD</span>
+      <span class="method-badge">DSC</span>
+      <span class="method-badge">PEG 6000</span>
+      <span class="method-badge">PEG 4000</span>
+      <span class="method-badge">Mannitol</span>
+      <span class="method-badge">Dissolution Studies</span>
+      <span class="method-badge">BCS Class II Drug</span>
+    </div>
+    <ul class="research-bullets">
+      <li>Developed solid dispersion formulations of Etoricoxib using PEG 6000, PEG 4000, and Mannitol carriers to enhance dissolution rate and bioavailability.</li>
+      <li>Conducted in-vitro dissolution studies to evaluate drug release profiles across multiple carrier-drug ratios and identify optimal formulation parameters.</li>
+      <li>Performed drug content evaluation and systematic optimization of carrier-drug ratios for maximum bioavailability enhancement.</li>
+      <li>Characterized solid dispersions using FTIR (chemical interaction), XRD (crystallinity assessment), and DSC (thermal behavior evaluation) to confirm amorphous conversion.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">// 05 — Certifications</div>
+  <h2 class="section-title">Licenses & <em>Certifications</em></h2>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-issuer">USAID · USP PQM+</div>
+      <div class="cert-name">eLearning Foundations of GMP: Medicinal Products</div>
+      <div class="cert-date">June 2026</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">WHO · CDSCO · Govt. of India</div>
+      <div class="cert-name">Quality Management System for National Regulatory Authorities</div>
+      <div class="cert-date">May 2026</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Microsoft · Great Learning</div>
+      <div class="cert-name">Microsoft Excel Certification</div>
+      <div class="cert-date">June 2026 · ID: XRWFMFPH</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Research Terminal Hyderabad</div>
+      <div class="cert-name">Industrial Training Certificate — Production, QA, QC, Formulation</div>
+      <div class="cert-date">Nov – Dec 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Pharmacy Council of India · GIST</div>
+      <div class="cert-name">Hospital Practical Training Certificate — SLNMCH, Koraput</div>
+      <div class="cert-date">Jun – Jul 2024 · 150+ Hours</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Utkal University · Bhubaneswar</div>
+      <div class="cert-name">UDPS PHARMACON 2023 — National Conference on Drug Development</div>
+      <div class="cert-date">December 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">// 06 — Education</div>
+  <h2 class="section-title">Academic <em>Background</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor of Pharmacy (B.Pharm)</div>
+      <div class="edu-school">Gayatri Institute of Science and Technology (GIST), Gunupur, Odisha</div>
+      <div class="edu-year">B.PHARM · PHARMACEUTICS</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Intermediate / +2 (Class XII)</div>
+      <div class="edu-school">Sai Valley World School, Rourkela, Odisha</div>
+      <div class="edu-year">2021</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Matriculation (Class X)</div>
+      <div class="edu-school">Vikash Residential School, Bargarh, Odisha</div>
+      <div class="edu-year">2019</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="section-label">// 07 — Contact</div>
+  <h2 class="section-title">Let's <em>Connect</em></h2>
+  <p style="color:var(--muted);font-size:0.9rem;max-width:480px;margin:0 auto;">Open to M.Pharm opportunities, pharmaceutical industry roles, research projects, and collaborations.</p>
+  <a href="mailto:ekalabyamahanandia@gmail.com" class="contact-email">ekalabyamahanandia@gmail.com</a>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/ekalabya-mahanandia-22b45a39a" class="contact-link" target="_blank">LinkedIn</a>
+    <span style="color:rgba(143,163,177,0.3);">·</span>
+    <a href="#" class="contact-link">Sundargarh, Odisha, India</a>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 Ekalabya Mahanandia · B.Pharm Graduate · Pharmaceutics & Formulation Development
+</footer>
+
+<script>
+  // Scroll animation for timeline items
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
